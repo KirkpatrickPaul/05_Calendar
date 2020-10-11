@@ -5,11 +5,25 @@ var time = 1 * moment().format("HH");
 //this function fills colors based on the hour of the time variable.
 for (var i = 8; i <= 17; i++) {
   var $cell = $("#hour-" + i);
+  var text = localStorage.getItem("hour" + i);
+  // the following function removes the null value for empty storage spaces
+  if (text === null) {
+    text = "";
+  }
+  $cell.html(
+    '<textarea class="form-control-plaintext hour-' +
+      i +
+      '" type="text" rows=3>' +
+      text +
+      "</textarea>"
+  );
+  //the following function fills colors based on the hour of the time variable.
   if (i > time) {
-    $cell.attr("class", "col-8 list-group-item-dark entry-block future");
+    $cell.attr("class", "col-8 hour future");
   } else if (i === time) {
-    $cell.attr("class", "col-8 list-group-item-dark entry-block present");
+    $cell.attr("class", "col-8 hour present");
   } else {
-    $cell.attr("class", "col-8 list-group-item-dark entry-block past");
+    $cell.attr("class", "col-8 hour past");
   }
 }
+$
