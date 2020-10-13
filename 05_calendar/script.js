@@ -12,11 +12,11 @@ $(document).ready(function () {
       text = "";
     }
     $cell.html(
-      '<textarea class="form-control-plaintext hr-' +
+      '<form><textarea class="form-control-plaintext" name="' +
         i +
-        '" type="text" rows=3>' +
+        'th-hour" type="text" rows=3>' +
         text +
-        "</textarea>"
+        "</textarea></form>"
     );
     //the following function fills colors based on the hour of the time variable.
     if (i > time) {
@@ -27,10 +27,13 @@ $(document).ready(function () {
       $cell.attr("class", "col-8 hour past");
     }
   }
-  $(".saveBtn").on("click", function (target) {
-    for (var i=8; i<=17; i++) {
-      if (target.matches("hour" + i) {
-        var 
+  // click even tied to the body was the easiest way I could find to loop over the buttons.
+  $("body").on("click", function (event) {
+    var $textArray = $("form").serializeArray();
+    for (var i = 8; i <= 17; i++) {
+      if (event.target.matches("#hour" + i)) {
+        var $saveText = $textArray[i - 8].value;
+        localStorage.setItem("hour" + i, $saveText);
       }
     }
   });
